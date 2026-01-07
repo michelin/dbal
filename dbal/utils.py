@@ -30,3 +30,18 @@ def toy_example(size=1000, dim=2, cluster=10):
         )
 
     return Xs, Xt, f
+
+
+
+def import_and_check_install(package):
+    """Import a package and print an error message to the user to install it if missing."""
+    from importlib import import_module
+
+    try:
+        return import_module(package)
+    except ImportError:
+        raise ImportError(
+            f"{package} not installed: \n"
+            f"pip install {package} (to install the missing package) or\n"
+            "pip install dbal[full] (to install all packages required by dbal)"
+        )

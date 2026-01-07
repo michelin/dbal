@@ -23,9 +23,10 @@ from tensorflow.keras.models import load_model
 
 from adapt.instance_based import TrAdaBoostR2
 
-from query_methods import *
+from dbal.query_methods import *
 from training_models import *
-from utils import *
+from dbal.utils import *
+from preprocessing import *
 
 
 def run_superconductivity_k20():

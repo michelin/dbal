@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import manhattan_distances
 from sklearn.neighbors import NearestNeighbors
 
 from .kdtrees import KDTreeForest
-
+from .utils import import_and_check_install
 
 def qbc_uncertainties(y_preds):
     predictions = np.stack(y_preds, axis=-1)
