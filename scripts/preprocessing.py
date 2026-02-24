@@ -76,36 +76,6 @@ def _superconductivity_domain(data, cuts, split_col, i):
                            & (data[:, split_col] > cuts[i-1])).ravel()
 
 
-def preprocessing_office(Xs, ys, Xt, yt):
-    
-    ohe = OneHotEncoder(sparse=False).fit(ys.reshape(-1, 1))
-    ys_enc = ohe.transform(ys.reshape(-1, 1))
-    yt_enc = ohe.transform(yt.reshape(-1, 1))
-    
-    def convert_y(y_pred):
-        new_pred = np.zeros(y_pred.shape)
-        args = np.argmax(y_pred, axis=1)
-        new_pred[np.arange(len(new_pred)), args] = 1.
-        return new_pred
-    
-    return Xs, ys_enc, Xt, yt_enc, convert_y
-
-
-def preprocessing_digits(Xs, ys, Xt, yt):
-    
-    ohe = OneHotEncoder(sparse=False).fit(ys.reshape(-1, 1))
-    ys_enc = ohe.transform(ys.reshape(-1, 1))
-    yt_enc = ohe.transform(yt.reshape(-1, 1))
-    
-    def convert_y(y_pred):
-        new_pred = np.zeros(y_pred.shape)
-        args = np.argmax(y_pred, axis=1)
-        new_pred[np.arange(len(new_pred)), args] = 1.
-        return new_pred
-    
-    return Xs, ys_enc, Xt, yt_enc, convert_y
-
-
 def preprocessing_superconductivity(Xs, ys, Xt, yt):
     maxes = Xs[:, 80:].max(0)
     Xs[:, 80:] = Xs[:, 80:] / (maxes + 1.e-8)
