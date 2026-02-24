@@ -12,38 +12,9 @@ This library offers several query methods for active learning, in the context of
     - BVSB: Best versus second best.;
 
 
-## Example
+## Examples
 
 
 A simple example with KMedoidsQuery is provided in [notebooks/kmedoids_toy_data.ipynb](notebooks/kmedoids_toy_data.ipynb).
 
-
-## Experiments
-
-The experiments are conducted on three benchmark datasets:
-- Superconductivity [UCI](https://archive.ics.uci.edu/ml/datasets/superconductivty+data#)
-- Office [Berkeley](https://people.eecs.berkeley.edu/~jhoffman/domainadapt/#datasets_code)
-- Digits [SYNTH](http://yaroslav.ganin.net/),  [SVHN](http://ufldl.stanford.edu/housenumbers/)
-
-Experiments can be run with the following command lines:
-
-```
-python scripts/run_experiments.py
-```
-
-## Notebooks
-
-Quick results can be obtained in the `notebooks` folder:
-
-### Superconductivity 
-
-[![name](images/superconductivity.png)](https://github.com/AnonymousAccount0/dbal/blob/master/notebooks/Superconductivity.ipynb)
-
-### Office
-
-[![name](images/office.png)](https://github.com/AnonymousAccount0/dbal/blob/master/notebooks/Office.ipynb)
-
-### Digits
-
-[![name](images/digits.png)](https://github.com/AnonymousAccount0/dbal/blob/master/notebooks/Digits.ipynb)
-
+An more comprehensive example is provided in [notebooks/Superconductivity.ipynb](notebooks/Superconductivity.ipynb), which demonstrates every method on the [superconductivity](https://archive.ics.uci.edu/dataset/464/superconductivty+data) benchmark dataset.
