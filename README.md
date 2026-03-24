@@ -1,84 +1,20 @@
 # Discrepancy-Based Active Learning for Domain Adaptation
 
-## Requirements
-
-The following packages are required to run the experiments:
-- `tensorflow` (>= 2.0)
-- `scikit-learn`
-- `numpy`
-- `pandas`
-- `Pillow`
-- `matplotlib` (for visualization)
-
-Besides, the [`adapt`](https://github.com/antoinedemathelin/adapt) package has been used for TrAdaBoost and DANN
-
-
-## Example
-
-A simple example is provided in `notebooks/Toy_example`. It presents an application of the K-medoids algorithm on the following toy domain adaptation problem:
-
-```python
-from utils import toy_example
-
-np.random.seed(2)
-Xs, Xt, f = toy_example()
-ys = f(Xs)
-yt = f(Xt)
-```
-
-<img src="images/toy_example.png" width="1200px" height="325px">
+This library offers several query methods for active learning, in the context of domain-expansion tasks :
+- KMedoidsQuery: based on the K-medoids clustering algorithm;
+- KMeansQuery: based on the K-means clustering algorithm;
+- KCenterQuery: based on the k-centers algorithm;
+- DiversityQuery: select target points with maximum average-distance to source points;
+- RandomQuery: A baseline method that randomly selects samples from the target domain. To be used only in comparison with other methods.
+- OrderedQuery: a basic method that should be used in conjonction with uncertainty predictions provided by the following approaches:
+    - AADA: an hybrid active learning method for domain adaptation using a combination of entropy measure from a classifier and the outputs of a domain discriminator;
+    - QBC: Query By Commitee;
+    - BVSB: Best versus second best.;
 
 
-Given a budget of 10 queries, the labels selection can be optimized using the K-medoids algorithm:
-
-```python
-from query_methods import KMedoidsQuery
-
-np.random.seed(0)
-kmedoids = KMedoidsQuery()
-kmedoids.fit(Xt, Xs, ys, 10)
-queries = kmedoids.predict(10)
-
-np.random.seed(0)
-model = MLPRegressor()
-model.fit(np.concatenate((Xs, Xt[queries])), np.concatenate((ys, yt[queries])))
-y_pred = model.predict(X)
-score = mean_absolute_error(yt, model.predict(Xt))
-print("Target MAE = %.3f"%score)
-
->>> Target MAE = 0.077
-```
-
-<img src="images/KMedoidsQuery.gif" width="1200px" height="325px">
+## Examples
 
 
-## Experiments
+A simple example with KMedoidsQuery is provided in [notebooks/kmedoids_toy_data.ipynb](notebooks/kmedoids_toy_data.ipynb).
 
-The experiments are conducted on three benchmark datasets:
-- Superconductivity [UCI](https://archive.ics.uci.edu/ml/datasets/superconductivty+data#)
-- Office [Berkeley](https://people.eecs.berkeley.edu/~jhoffman/domainadapt/#datasets_code)
-- Digits [SYNTH](http://yaroslav.ganin.net/),  [SVHN](http://ufldl.stanford.edu/housenumbers/)
-
-Experiments can be run with the following command lines:
-
-```
-cd dbal
-python run_experiments.py
-```
-
-## Notebooks
-
-Quick results can be obtained in the `notebooks` folder:
-
-### Superconductivity 
-
-[![name](images/superconductivity.png)](https://github.com/AnonymousAccount0/dbal/blob/master/notebooks/Superconductivity.ipynb)
-
-### Office
-
-[![name](images/office.png)](https://github.com/AnonymousAccount0/dbal/blob/master/notebooks/Office.ipynb)
-
-### Digits
-
-[![name](images/digits.png)](https://github.com/AnonymousAccount0/dbal/blob/master/notebooks/Digits.ipynb)
-
+An more comprehensive example is provided in [notebooks/Superconductivity.ipynb](notebooks/Superconductivity.ipynb), which demonstrates every method on the [superconductivity](https://archive.ics.uci.edu/dataset/464/superconductivty+data) benchmark dataset.
